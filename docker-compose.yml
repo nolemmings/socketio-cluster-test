@@ -1,0 +1,26 @@
+server1:
+  build: .
+  ports:
+    - "3000:3000"
+  links:
+    - mongodb
+  environment:
+    MONGODB_URL: mongodb://mongodb:27017/socketio_test
+    SERVER_NAME: server-1
+    SERVER_PORT: 3000
+
+server2:
+  build: .
+  ports:
+    - "3001:3001"
+  links:
+    - mongodb
+  environment:
+    MONGODB_URL: mongodb://mongodb:27017/socketio_test
+    SERVER_NAME: server-2
+    SERVER_PORT: 3001
+
+mongodb:
+  image: mongo:2.6
+  ports:
+    - "27017:27017"

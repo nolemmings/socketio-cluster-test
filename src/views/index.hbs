@@ -1,0 +1,89 @@
+<html>
+
+<head>
+  <title>Socket.io + Express4 test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.1/moment.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Socket.io test</h1>
+  <form action="messages" method="post" name="message">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="input-group">
+          <input type="text" id="input-message" autocomplete="off" name="message" class="form-control" placeholder="Message...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">Submit</button>
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-8"></div>
+    </div>
+  </form>
+  <div class="btn-toolbar">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default" onClick="loadMessages()">Refresh all</button>
+      <button type="button" class="btn btn-default" onClick="deleteMessages()">Remove all</button>
+    </div>
+  </div>
+
+  <br />
+  <ul id="messages" class="list-group">
+  </ul>
+</body>
+
+<script>
+  function loadMessages() {
+    $.getJSON('/messages', function(data) {
+      $('#messages').empty();
+      $.each(data, function(key, val) {
+        appendMessage(val);
+      });
+    })
+  }
+
+  function appendMessage(msg) {
+    var time = moment(msg.created).format('HH:mm');
+    var newMessage = '<li class="list-group-item" id="' + msg._id + '"><small>' + time + ' ' + msg.server + '</small> <em>' + msg.message + '</em></li>';
+    $('#messages').prepend(newMessage);
+  }
+
+  function deleteMessages() {
+    $.ajax({
+      url: '/messages',
+      type: 'DELETE',
+      success: function(result) {
+        console.log('DELETE /messages', result);
+        loadMessages();
+      }
+    });
+  }
+
+  $('form[name=message]').submit(function() {
+    $.post($(this).attr('action'), $(this).serialize(), function(res) {
+      console.log('POST /messages', res);
+    });
+    $('#input-message').val('');
+    return false; // prevent default action
+  });
+
+  var socket = io();
+  socket.on('newMessage', function(msg) {
+    console.log('newMessage' + msg);
+    appendMessage($.parseJSON(msg));
+  });
+
+  $(document).ready(function() {
+    loadMessages();
+  });
+</script>
+
+</html>
