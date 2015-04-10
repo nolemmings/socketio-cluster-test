@@ -1,19 +1,19 @@
 # socketio express4 test
 
-**Work in progress**
+This quick prototype combines a REST API with a socket connection in a clustered Node.js environment. Data is stored in MongoDB while socket.io session management is done in Redis.
 
-This prototype combines a REST API with a socket connection in a clustered Node.js environment. Data is stored in MongoDB while socket.io session management is done in Redis.
+## Run
 
-## Starting application
+First install both [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/).
 
-You require [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/).
-
-After having installed these, you should get things started by running:
+When you have a working Docker and Compose setup you should be able to run the environment using:
 
 ```
 docker-compose up
 ```
 
-If you're using a non-linux OS, make sure ports `3000`, `3001`, `6379` and `27017` are being forwarded in your VM. For Mac OS X, check [here](https://github.com/boot2docker/boot2docker/blob/master/doc/WORKAROUNDS.md) how to do this in [boot2docker](http://boot2docker.io/).
+This starts two node.js servers, a MongoDB server and a Redis server.
 
-When running open the `http://localhost:3000` and `http://localhost:3001` in your web browser and check experiment!
+If you're using a non-linux OS, make sure ports `3000`, `3001`, `6379` and `27017` are being forwarded in your VM. For Mac OS X, check [here](https://github.com/boot2docker/boot2docker/blob/master/doc/WORKAROUNDS.md) how to do this for [boot2docker](http://boot2docker.io/).
+
+When Docker Compose is running open `http://localhost:3000` and `http://localhost:3001` in your web browser and check experiment!
