@@ -4,10 +4,12 @@ server1:
     - "3000:3000"
   links:
     - mongodb
+    - redis
   environment:
     MONGODB_URL: mongodb://mongodb:27017/socketio_test
     SERVER_NAME: server-1
     SERVER_PORT: 3000
+    REDIS_URL: redis:6379
 
 server2:
   build: .
@@ -15,12 +17,19 @@ server2:
     - "3001:3001"
   links:
     - mongodb
+    - redis
   environment:
     MONGODB_URL: mongodb://mongodb:27017/socketio_test
     SERVER_NAME: server-2
     SERVER_PORT: 3001
+    REDIS_URL: redis:6379
 
 mongodb:
   image: mongo:2.6
   ports:
     - "27017:27017"
+
+redis:
+  image: redis:latest
+  ports:
+    - "6379:6379"

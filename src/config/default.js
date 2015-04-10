@@ -29,5 +29,12 @@ module.exports = {
             "default": "mongodb://localhost:27017/socketio_test",
             "env": "MONGODB_URL"
         }
+    },
+    "redis": {
+        "url": {
+            "doc": "The redis server hostname and port number.",
+            "default": "localhost:6379",
+            "env": "REDIS_URL"
+        }
     }
 };

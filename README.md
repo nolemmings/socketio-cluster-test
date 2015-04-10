@@ -14,4 +14,4 @@ After having installed these, you should get things started by running:
 docker-compose up
 ```
 
-If you're using a non-linux OS, make sure ports `3000`, `3001`, and `27017` are being forwarded in your VM. For Mac OS X, check [here](https://github.com/boot2docker/boot2docker/blob/master/doc/WORKAROUNDS.md) how to do this in [boot2docker](http://boot2docker.io/).
+If you're using a non-linux OS, make sure ports `3000`, `3001`, `6379` and `27017` are being forwarded in your VM. For Mac OS X, check [here](https://github.com/boot2docker/boot2docker/blob/master/doc/WORKAROUNDS.md) how to do this in [boot2docker](http://boot2docker.io/).
